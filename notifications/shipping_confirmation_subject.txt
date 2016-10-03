@@ -1,0 +1,1 @@
+Your posies from order {{ name }} are on the way
