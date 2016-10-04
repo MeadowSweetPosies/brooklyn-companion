@@ -1,6 +1,10 @@
+{% if total_price > 0%}
 {% capture email_title %}Thank you for buying our posies! {% endcapture %}
-{% capture email_body %}Hi {{ customer.first_name }}, we're preparing your beautiful flowers. We will notify you when we've dropped them off.  We operate a Friday cut-off for the following Friday delivery.  You won't have to wait long.{% endcapture %}
-
+{% capture email_body %}Hi {{ customer.first_name }}, We're preparing your beautiful flowers. We will notify you when we've dropped them off.  We operate a Friday cut-off for the following Friday delivery.  You won't have to wait long.  Kind regards, MeadowSweet{% endcapture %}
+{% else %}
+{% capture email_title %}We're working on your next bunch! {% endcapture %}
+{% capture email_body %}Hi {{ customer.first_name }}, We're scouring the country looking for what's fresh, bright and seasonal, we're trying out different combinations to see what works well together, we're making them up, tying on ribbons, putting them in boxes and one of them is for you!  It will be with you next Friday.  We will notify you when we've dropped it off.  Kind regards, MeadowSweet{% endcapture %}
+{% end_if %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -155,7 +159,7 @@
           {% else %}
             {% assign line_title = line.title %}
           {% endif %}
-          <span class="order-list__item-title">{{ line_title }} × {{ line.quantity }}</span><br/>
+          <span class="order-list__item-title">{{ line_title }}ï¿½× {{ line.quantity }}</span><br/>
           {% if line.variant.title != 'Default Title' %}
             <span class="order-list__item-variant">{{ line.variant.title }}</span>
           {% endif %}
@@ -382,9 +386,9 @@
                         {% if transaction.payment_details.credit_card_company %}
                           {% capture credit_card_url %}notifications/{{ transaction.payment_details.credit_card_company | downcase }}.png{% endcapture %}
                           <img src="{{ credit_card_url | shopify_asset_url }}" class="customer-info__item-credit" height="24">
-                          <span>Ending in {{ transaction.payment_details.credit_card_last_four_digits }} — <strong>{{ total_price | money }}</strong></span>
+                          <span>Ending in {{ transaction.payment_details.credit_card_last_four_digits }} ï¿½ <strong>{{ total_price | money }}</strong></span>
                         {% else %}
-                          {{ transaction.gateway | replace: "_", " " | capitalize }} — <strong>{{ transaction.amount | money }}</strong>
+                          {{ transaction.gateway | replace: "_", " " | capitalize }} ï¿½ <strong>{{ transaction.amount | money }}</strong>
                         {% endif %}
                       </p>
                     {% endif %}
